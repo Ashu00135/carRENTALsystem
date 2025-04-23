@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Car</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #333; }
+        form { margin-top: 20px; }
+        p { color: green; }
+        .error { color: red; }
+        a { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Add New Car</h2>
+    <form method="post" action="/add-car">
+        <label>Car ID: <input type="number" name="id" required></label><br>
+        <label>Make: <input type="text" name="make" required></label><br>
+        <label>Model: <input type="text" name="model" required></label><br>
+        <button type="submit">Add Car</button>
+    </form>
+    <p th:if="${message}" th:text="${message}"></p>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+    <a href="/">Back to Home</a>
+</body>
+</html>

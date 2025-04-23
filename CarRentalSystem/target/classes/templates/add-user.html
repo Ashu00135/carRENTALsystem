@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register New User</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #333; }
+        form { margin-top: 20px; }
+        p { color: green; }
+        .error { color: red; }
+        a { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Register New User</h2>
+    <form method="post" action="/add-user">
+        <label>User ID: <input type="number" name="id" required></label><br>
+        <label>Name: <input type="text" name="name" required></label><br>
+        <button type="submit">Add User</button>
+    </form>
+    <p th:if="${message}" th:text="${message}"></p>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+    <a href="/">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rental History</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #333; }
+        ul { list-style-type: none; }
+        a { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Rental History</h2>
+    <ul>
+        <li th:each="rental : ${rentals}" th:text="${rental}"></li>
+        <li th:if="${#lists.isEmpty(rentals)}">No rentals recorded.</li>
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>

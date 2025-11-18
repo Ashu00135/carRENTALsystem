@@ -1,18 +1,21 @@
 package com.ashutosh.carrental.controller;
 
-import com.ashutosh.carrental.model.Car;
-import com.ashutosh.carrental.model.User;
-import com.ashutosh.carrental.model.Rental;
-import com.ashutosh.carrental.repository.CarRepository;
-import com.ashutosh.carrental.repository.UserRepository;
-import com.ashutosh.carrental.repository.RentalRepository;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import com.ashutosh.carrental.model.Car;
+import com.ashutosh.carrental.model.Rental;
+import com.ashutosh.carrental.model.User;
+import com.ashutosh.carrental.repository.CarRepository;
+import com.ashutosh.carrental.repository.RentalRepository;
+import com.ashutosh.carrental.repository.UserRepository;
 
 @Controller
 public class CarRentalController {
@@ -76,16 +79,16 @@ public class CarRentalController {
     }
 
     @PostMapping("/add-car")
-    public String addCar(@RequestParam int id, @RequestParam String make, @RequestParam String model, Model model) {
+    public String addCar(@RequestParam int id, @RequestParam String make, @RequestParam String carModel, Model model) {
         if (carRepository.existsById(id)) {
             model.addAttribute("error", "Car ID already exists!");
             return "add-car";
         }
-        if (make.trim().isEmpty() || model.trim().isEmpty()) {
+        if (make.trim().isEmpty() || carModel.trim().isEmpty()) {
             model.addAttribute("error", "Make and model cannot be empty!");
             return "add-car";
         }
-        carRepository.save(new Car(id, make, model, true));
+        carRepository.save(new Car(id, make, carModel, true));
         model.addAttribute("message", "Car added successfully!");
         return "add-car";
     }

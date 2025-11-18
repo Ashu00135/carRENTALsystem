@@ -1,53 +1,432 @@
-Car Rental System
-A simple console-based Java application for managing car rentals. Users can list available cars, rent cars, view rental history, add new cars, and register new users. This project is ideal for beginners learning Java and object-oriented programming (OOP) concepts.
-Features
+# Car Rental System - Full Stack
 
-Manage Cars and Users: Add cars and users with unique IDs.
-Rent Cars: Rent available cars with real-time date tracking using LocalDateTime.
-View Rentals: Display rental history with user and car details.
-Input Validation: Ensures valid numeric IDs and non-empty fields.
-Basic CRUD Operations: Create, read, and update functionality for cars and users.
+A modern **full-stack Car Rental Management System** built with:
+- **Backend**: Java 17, Spring Boot 3.3.4, Spring Data JPA, H2 Database
+- **Frontend**: React 18, Vite, React Router, Axios
 
-Technologies Used
+This is a **production-ready application** with React UI, REST APIs, responsive design, and complete setup automation.
 
-Java: Core language (JDK 17+ recommended).
-Scanner: For user input.
-ArrayList: For in-memory data storage.
-LocalDateTime: For real-time rental date tracking.
+---
 
-Prerequisites
+## ✨ Features
 
-Java Development Kit (JDK) 17 or higher installed.
-A terminal or IDE (e.g., IntelliJ IDEA, Eclipse) to compile and run the program.
+### Core Functionality
+- 🚗 **Manage Cars**: Browse, add, and track car availability with images
+- 👥 **Manage Users**: Register users and manage customer information
+- 🎫 **Rent Cars**: Create and manage car rental transactions
+- 📊 **View Rentals**: Complete rental history with statistics
+- ✅ **Real-time Tracking**: Track rental dates and status
 
-How to Run
+### Frontend Features
+- 🎨 **Modern React UI**: 6 responsive pages with React Router
+- 📱 **Fully Responsive**: Mobile, tablet, and desktop optimized
+- 🖼️ **Car Images**: Unsplash integration with fallback emojis
+- ✔️ **Form Validation**: Client-side validation with error messages
+- ⚡ **Hot Reload**: Vite development server with instant updates
+- 🎯 **Professional Design**: Clean, modern UI with smooth animations
 
-Clone the Repository:git clone https://github.com/your-username/car-rental-system.git
-cd car-rental-system
+### Backend Features
+- 🌐 **Spring Boot REST API**: Complete CRUD endpoints
+- 🗄️ **H2 Database**: Development-ready, in-memory database
+- 🔄 **JPA/Hibernate**: Object-relational mapping
+- ✔️ **Server Validation**: Input validation and business logic
+- 🛠️ **Maven Build**: Automated build and dependency management
+- � **H2 Console**: Database inspection and management
 
+---
 
-Compile the Code:javac CarRentalSystem.java
+## 🛠️ Technologies Used
 
+### Backend
+| Component | Version | Purpose |
+|-----------|---------|---------|
+| **Java** | 17+ | Core language |
+| **Spring Boot** | 3.3.4 | Framework |
+| **Spring Data JPA** | 3.3.4 | ORM & Database |
+| **Hibernate** | 6.5.3 | JPA Implementation |
+| **H2 Database** | 2.2.224 | Development/Testing |
+| **Thymeleaf** | 3.3.4 | Template Engine |
+| **Maven** | 3.9+ | Build Tool |
+| **Tomcat** | 10.1.30 | Application Server |
 
-Run the Application:java CarRentalSystem
+### Frontend
+| Component | Version | Purpose |
+|-----------|---------|---------|
+| **React** | 18.3.1 | UI Framework |
+| **Vite** | 5.4.21 | Build Tool & Dev Server |
+| **React Router** | 6.30.1 | Navigation |
+| **Axios** | 1.13.2 | HTTP Client |
+| **CSS3** | Latest | Styling & Responsive Design |
+| **Node.js** | 18+ LTS | JavaScript Runtime |
 
+---
 
-Interact with the System: Follow the console prompts to choose options like listing cars, renting, or adding new cars/users.
+## 📋 Prerequisites
 
-Usage
+### Required
+- ✅ **Java JDK 17 or higher** ([Download](https://www.oracle.com/java/technologies/downloads/))
+- ✅ **Maven 3.9+** ([Download](https://maven.apache.org/download.cgi))
+- ✅ **Git** (optional, for cloning)
 
-Choose from the menu (1-6) to perform actions.
-Enter numeric IDs for users and cars when prompted.
-View rental history to track all transactions.
+### Verify Installation
+```powershell
+java -version      # Should show Java 17+
+mvn -v            # Should show Maven 3.9+
+```
 
-Project Structure
+---
 
-CarRentalSystem.java: Main file containing all classes (Car, User, Rental) and logic.
+## 🚀 Quick Start
 
-Contributing
-Contributions are welcome! To contribute:
+## ⚡ Quick Start (Easiest!)
 
-Fork the repository.
+### Option 1: Full Stack (Recommended)
+```powershell
+cd d:\PROJECTS\car_manager\carRENTALsystem
+
+# Terminal 1: Start Backend
+.\startup.ps1 backend
+
+# Terminal 2: Start Frontend
+.\startup.ps1 frontend
+
+# Open in browser:
+# Frontend: http://localhost:3000
+# Backend:  http://localhost:8080
+```
+
+### Option 2: Backend Only
+```powershell
+cd d:\PROJECTS\car_manager\carRENTALsystem
+.\startup.ps1 backend
+
+# Application starts on http://localhost:8080
+```
+
+### Option 3: Frontend Only (requires backend running)
+```powershell
+cd d:\PROJECTS\car_manager\carRENTALsystem\frontend
+npm run dev
+
+# Application starts on http://localhost:3000
+```
+
+### Option 4: Manual Build & Run
+```powershell
+cd CarRentalSystem
+mvn clean package
+java -jar target/carrental-0.0.1-SNAPSHOT.jar
+```
+
+---
+
+## 📚 Complete Documentation
+
+For detailed setup and management:
+
+### 📖 [SETUP_GUIDE.md](./SETUP_GUIDE.md)
+- ✅ Complete installation instructions
+- 🏃 How to run the application
+- 🔧 Configuration and environment setup
+- 🐛 Troubleshooting guide
+- 👨‍💻 Development guidelines
+
+### 📦 [DEPENDENCY_MANAGEMENT.md](./DEPENDENCY_MANAGEMENT.md)
+- 📚 Current dependencies explained
+- ➕ How to add new dependencies
+- 🔍 View and manage dependencies
+- 🔄 Update and upgrade procedures
+- 📊 Dependency security
+
+---
+
+## 🎯 Build & Run Commands
+
+### PowerShell
+
+```powershell
+# Show help
+.\build-run.ps1 help
+
+# Build only
+.\build-run.ps1 build
+
+# Run only (must build first)
+.\build-run.ps1 run -port 8080
+
+# Build and run
+.\build-run.ps1 build-run
+
+# Development mode (hot reload)
+.\build-run.ps1 dev -port 8080
+
+# Clean build artifacts
+.\build-run.ps1 clean
+
+# Show dependencies
+.\build-run.ps1 dependencies
+```
+
+### Command Prompt
+
+```cmd
+build-run.bat help
+build-run.bat build
+build-run.bat run 8080
+build-run.bat build-run
+build-run.bat dev
+build-run.bat clean
+build-run.bat dependencies
+```
+
+### Direct Maven
+
+```powershell
+cd CarRentalSystem
+
+# Build with tests
+mvn clean package
+
+# Build without tests (faster)
+mvn -DskipTests package
+
+# Dev mode
+mvn spring-boot:run
+
+# Run on different port
+mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=9090"
+
+# View dependencies
+mvn dependency:tree
+```
+
+---
+
+## 🌐 Access Application
+
+Once running, access the application:
+
+- **Web UI**: [http://localhost:8080/](http://localhost:8080/)
+- **H2 Console** (dev only): [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+  - JDBC URL: `jdbc:h2:mem:carrental`
+  - Username: `sa`
+  - Password: (leave empty)
+
+---
+
+## 📁 Project Structure
+
+```
+carRENTALsystem/
+├── CarRentalSystem/                    # Spring Boot application source
+│   ├── src/main/java/
+│   │   └── com/ashutosh/carrental/
+│   │       ├── CarRentalApplication.java      # Main @SpringBootApplication
+│   │       ├── controller/
+│   │       │   └── CarRentalController.java   # REST endpoints & routes
+│   │       ├── model/
+│   │       │   ├── Car.java                   # Car entity
+│   │       │   ├── User.java                  # User entity (@Table name fix)
+│   │       │   └── Rental.java                # Rental entity
+│   │       └── repository/
+│   │           ├── CarRepository.java         # Car CRUD
+│   │           ├── UserRepository.java        # User CRUD
+│   │           └── RentalRepository.java      # Rental CRUD
+│   ├── src/main/resources/
+│   │   ├── application.properties             # Default config
+│   │   ├── application-dev.properties         # Development config
+│   │   ├── application-prod.properties        # Production config
+│   │   ├── static/
+│   │   │   └── index.html                     # Home page
+│   │   └── templates/                         # Thymeleaf templates
+│   │       ├── add-car.html
+│   │       ├── add-user.html
+│   │       ├── cars.html
+│   │       ├── rent.html
+│   │       └── rentals.html
+│   ├── target/                                # Build output (auto-generated)
+│   └── pom.xml                                # Maven dependencies & config
+├── build-run.ps1                      # PowerShell build automation script
+├── build-run.bat                      # Batch build automation script
+├── .env.example                       # Environment template
+├── SETUP_GUIDE.md                     # Complete setup documentation
+├── DEPENDENCY_MANAGEMENT.md           # Dependency management guide
+└── README.md                          # This file
+```
+
+---
+
+## 📊 API Endpoints
+
+### Pages
+- `GET /` — Home page
+- `GET /cars` — List available cars
+- `GET /add-car` — Add car form
+- `GET /add-user` — Add user form
+- `GET /rent` — Rent car form
+- `GET /rentals` — View all rentals
+
+### API Operations
+- `POST /add-car` — Add new car
+- `POST /add-user` — Register new user
+- `POST /rent` — Create rental
+- `GET /h2-console` — Database console (dev only)
+
+---
+
+## 🗄️ Database
+
+### Development (Default)
+- **Type**: H2 (In-memory)
+- **Lifecycle**: Auto-created, loses data on restart
+- **Console**: http://localhost:8080/h2-console
+- **Perfect for**: Development and testing
+
+### Production
+- Switch to MySQL or PostgreSQL
+- Edit `application-prod.properties`
+- Update `pom.xml` with appropriate driver
+- See [DEPENDENCY_MANAGEMENT.md](./DEPENDENCY_MANAGEMENT.md)
+
+---
+
+## ✅ Fixed Issues
+
+### Compilation Errors (Fixed ✓)
+- ✓ Parameter shadowing in `CarRentalController.addCar()` method
+- ✓ H2 SQL reserved word error in `User` table (`user` → `app_user`)
+
+### Configuration (Added ✓)
+- ✓ Development profile with debug logging
+- ✓ Production profile with optimized settings
+- ✓ Environment variable templates
+
+---
+
+## 🛠️ Environment Setup
+
+### Development Environment
+
+```properties
+SERVER_PORT=8080
+SPRING_PROFILES_ACTIVE=dev
+SPRING_JPA_HIBERNATE_DDL_AUTO=update
+LOGGING_LEVEL_COM_ASHUTOSH_CARRENTAL=DEBUG
+```
+
+### Production Environment
+
+```properties
+SERVER_PORT=8080
+SPRING_PROFILES_ACTIVE=prod
+SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+LOGGING_LEVEL_COM_ASHUTOSH_CARRENTAL=INFO
+spring.h2.console.enabled=false
+```
+
+---
+
+## 📖 Step-by-Step Setup
+
+1. **Install Prerequisites**
+   ```powershell
+   java -version  # Verify Java 17+
+   mvn -v        # Verify Maven 3.9+
+   ```
+
+2. **Navigate to Project**
+   ```powershell
+   cd d:\PROJECTS\car_manager\carRENTALsystem
+   ```
+
+3. **Build Application**
+   ```powershell
+   .\build-run.ps1 build
+   ```
+
+4. **Run Application**
+   ```powershell
+   .\build-run.ps1 run
+   ```
+
+5. **Access Web UI**
+   ```
+   http://localhost:8080
+   ```
+
+---
+
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "Java not found" | Install JDK 17+, add to PATH |
+| "Maven not found" | Install Maven 3.9+, add to PATH |
+| "Port 8080 in use" | Run on different port: `.\build-run.ps1 run -port 9090` |
+| "Build fails" | Clean cache: `mvn clean install` |
+| "H2 console errors" | Check entity names (avoid SQL keywords) |
+
+See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for more troubleshooting.
+
+---
+
+## 📦 Dependencies at a Glance
+
+```
+Spring Boot 3.3.4
+├── spring-boot-starter-web (REST & web)
+├── spring-boot-starter-data-jpa (Database)
+├── spring-boot-starter-thymeleaf (Templates)
+├── h2database (Dev database)
+└── spring-boot-starter-test (Testing)
+```
+
+View full dependency tree:
+```powershell
+mvn dependency:tree
+```
+
+---
+
+## 👨‍💻 Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Test locally: `.\build-run.ps1 dev`
+4. Build and verify: `.\build-run.ps1 build`
+5. Commit and push
+
+---
+
+## 📝 Notes
+
+- This is a **professional Spring Boot application**, not a simple console app
+- Uses **Hibernate ORM** for database operations
+- Fully **automated build & run scripts**
+- Production-ready with dev/prod configurations
+- **H2 Console** available for database inspection during development
+
+---
+
+## 📞 Support
+
+- Check [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed documentation
+- Check [DEPENDENCY_MANAGEMENT.md](./DEPENDENCY_MANAGEMENT.md) for dependency help
+- Review application logs in console output
+
+---
+
+## 📄 Project Info
+
+- **Application Name**: Car Rental System
+- **Version**: 0.0.1-SNAPSHOT
+- **Spring Boot**: 3.3.4
+- **Java Version**: 17+
+- **Last Updated**: November 11, 2025
+
+---
+
+**Ready to build? Run: `.\build-run.ps1 build-run`** 🚀
 Create a new branch (git checkout -b feature/YourFeature).
 Make your changes and commit (git commit -m "Add YourFeature").
 Push to your branch (git push origin feature/YourFeature).

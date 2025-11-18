@@ -1,0 +1,10 @@
+com\ashutosh\carrental\controller\CarRentalController.class
+com\ashutosh\carrental\repository\UserRepository.class
+com\ashutosh\carrental\model\Car.class
+com\ashutosh\carrental\model\User.class
+com\ashutosh\carrental\controller\ApiController.class
+com\ashutosh\carrental\model\Rental.class
+com\ashutosh\carrental\CarRentalApplication.class
+com\ashutosh\carrental\controller\ApiController$RentalRequest.class
+com\ashutosh\carrental\repository\CarRepository.class
+com\ashutosh\carrental\repository\RentalRepository.class

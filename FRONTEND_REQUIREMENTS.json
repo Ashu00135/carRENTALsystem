@@ -1,0 +1,735 @@
+{
+  "project": "Car Rental System - Frontend Requirements",
+  "version": "1.0.0",
+  "created": "2025-11-11",
+  "overview": {
+    "description": "Frontend specification for a web-based Car Rental Management System",
+    "stack": "HTML5, CSS3, JavaScript (ES6+), Optional: React, Vue.js, or Angular",
+    "backend": "Spring Boot 3.3.4 REST API on http://localhost:8080",
+    "database": "H2 In-Memory Database (Development)"
+  },
+  "pages": {
+    "home": {
+      "route": "/",
+      "title": "Car Rental System - Home",
+      "description": "Landing page with navigation to all features",
+      "components": [
+        {
+          "name": "Header",
+          "content": "Logo, Title 'Car Rental System', Navigation Menu"
+        },
+        {
+          "name": "Welcome Section",
+          "content": "Welcome message, brief description of the system"
+        },
+        {
+          "name": "Action Buttons",
+          "layout": "Grid (2 columns)",
+          "buttons": [
+            {
+              "label": "📋 List Available Cars",
+              "route": "/cars",
+              "description": "View all available cars for rent"
+            },
+            {
+              "label": "🔑 Rent a Car",
+              "route": "/rent",
+              "description": "Rent a car by selecting user and vehicle"
+            },
+            {
+              "label": "📊 View Rentals",
+              "route": "/rentals",
+              "description": "View all active and past rentals"
+            },
+            {
+              "label": "➕ Add New Car",
+              "route": "/add-car",
+              "description": "Add a new car to the inventory"
+            },
+            {
+              "label": "👤 Register New User",
+              "route": "/add-user",
+              "description": "Register a new customer"
+            },
+            {
+              "label": "💾 H2 Database Console",
+              "route": "/h2-console",
+              "description": "Access database management console"
+            }
+          ]
+        },
+        {
+          "name": "Footer",
+          "content": "Copyright notice, Quick Links, Contact info"
+        }
+      ]
+    },
+    "cars_list": {
+      "route": "/cars",
+      "title": "Available Cars",
+      "description": "Display all available cars for rent",
+      "api_endpoint": "GET /api/cars or GET /cars (HTML)",
+      "components": [
+        {
+          "name": "Page Header",
+          "content": "Title: 'Available Cars', Back to Home button"
+        },
+        {
+          "name": "Filter Section",
+          "fields": [
+            {
+              "name": "Search by Make",
+              "type": "text-input",
+              "placeholder": "e.g., Toyota"
+            },
+            {
+              "name": "Filter by Availability",
+              "type": "checkbox",
+              "values": ["Available", "Rented"]
+            }
+          ]
+        },
+        {
+          "name": "Cars Table/Grid",
+          "display_mode": "Table or Card Grid",
+          "columns": [
+            {
+              "field": "id",
+              "label": "Car ID",
+              "type": "number",
+              "sortable": true
+            },
+            {
+              "field": "make",
+              "label": "Make",
+              "type": "text",
+              "sortable": true
+            },
+            {
+              "field": "model",
+              "label": "Model",
+              "type": "text",
+              "sortable": true
+            },
+            {
+              "field": "available",
+              "label": "Status",
+              "type": "boolean",
+              "display": "Available/Rented",
+              "sortable": true
+            },
+            {
+              "field": "actions",
+              "label": "Actions",
+              "type": "buttons",
+              "options": ["View Details", "Rent Now"]
+            }
+          ],
+          "pagination": {
+            "enabled": true,
+            "items_per_page": 10
+          }
+        }
+      ]
+    },
+    "rent_car": {
+      "route": "/rent",
+      "title": "Rent a Car",
+      "description": "Form to rent a car",
+      "api_endpoint": "GET /rent (form display), POST /rent (form submission)",
+      "method": "POST",
+      "components": [
+        {
+          "name": "Page Header",
+          "content": "Title: 'Rent a Car', Back to Home button"
+        },
+        {
+          "name": "Rent Form",
+          "fields": [
+            {
+              "name": "User Selection",
+              "type": "dropdown",
+              "label": "Select Customer",
+              "api_source": "GET /api/users or embedded in response",
+              "required": true,
+              "placeholder": "Choose a registered customer",
+              "bind_to_model": "userId"
+            },
+            {
+              "name": "Car Selection",
+              "type": "dropdown",
+              "label": "Select Available Car",
+              "api_source": "GET /api/cars (only available ones)",
+              "required": true,
+              "placeholder": "Choose a car to rent",
+              "bind_to_model": "carId"
+            },
+            {
+              "name": "Rental Date",
+              "type": "date-picker",
+              "label": "Rental Start Date",
+              "required": true,
+              "default": "Today"
+            },
+            {
+              "name": "Estimated Return",
+              "type": "date-picker",
+              "label": "Estimated Return Date",
+              "required": false
+            }
+          ],
+          "submit_button": {
+            "label": "Complete Rental",
+            "action": "POST /rent with form data"
+          },
+          "success_message": "Car rented successfully! Rental ID: {rentalId}",
+          "error_handling": "Display error if car not available or user not found"
+        }
+      ]
+    },
+    "view_rentals": {
+      "route": "/rentals",
+      "title": "View Rentals",
+      "description": "Display all rental records",
+      "api_endpoint": "GET /rentals (HTML) or GET /api/rentals (JSON)",
+      "components": [
+        {
+          "name": "Page Header",
+          "content": "Title: 'All Rentals', Back to Home button"
+        },
+        {
+          "name": "Filter Section",
+          "fields": [
+            {
+              "name": "Filter by User",
+              "type": "dropdown",
+              "dynamic": true
+            },
+            {
+              "name": "Filter by Status",
+              "type": "radio-buttons",
+              "values": ["Active", "Completed", "All"]
+            },
+            {
+              "name": "Date Range",
+              "type": "date-range-picker"
+            }
+          ]
+        },
+        {
+          "name": "Rentals Table",
+          "display_mode": "Table",
+          "columns": [
+            {
+              "field": "rentalId",
+              "label": "Rental ID",
+              "type": "number",
+              "sortable": true
+            },
+            {
+              "field": "userName",
+              "label": "Customer Name",
+              "type": "text",
+              "sortable": true
+            },
+            {
+              "field": "carDetails",
+              "label": "Car (Make/Model)",
+              "type": "text",
+              "sortable": true
+            },
+            {
+              "field": "rentalDate",
+              "label": "Rental Date",
+              "type": "date",
+              "sortable": true
+            },
+            {
+              "field": "returnDate",
+              "label": "Return Date",
+              "type": "date",
+              "sortable": true
+            },
+            {
+              "field": "status",
+              "label": "Status",
+              "type": "badge",
+              "values": {
+                "active": "🟢 Active",
+                "completed": "⚪ Completed"
+              }
+            },
+            {
+              "field": "actions",
+              "label": "Actions",
+              "type": "buttons",
+              "options": ["View Details", "Return Car"]
+            }
+          ],
+          "pagination": {
+            "enabled": true,
+            "items_per_page": 15
+          },
+          "export": {
+            "enabled": true,
+            "formats": ["CSV", "PDF"]
+          }
+        }
+      ]
+    },
+    "add_car": {
+      "route": "/add-car",
+      "title": "Add New Car",
+      "description": "Form to add a new car to inventory",
+      "api_endpoint": "GET /add-car (form), POST /add-car (submission)",
+      "method": "POST",
+      "components": [
+        {
+          "name": "Page Header",
+          "content": "Title: 'Add New Car', Back to Home button"
+        },
+        {
+          "name": "Car Form",
+          "fields": [
+            {
+              "name": "Car ID",
+              "type": "number-input",
+              "label": "Unique Car ID",
+              "required": true,
+              "validation": "Must be unique and positive",
+              "placeholder": "e.g., 101"
+            },
+            {
+              "name": "Make",
+              "type": "text-input",
+              "label": "Car Make (Manufacturer)",
+              "required": true,
+              "placeholder": "e.g., Toyota, Honda, BMW",
+              "maxLength": 50
+            },
+            {
+              "name": "Model",
+              "type": "text-input",
+              "label": "Car Model",
+              "required": true,
+              "placeholder": "e.g., Corolla, Civic, X5",
+              "maxLength": 50
+            },
+            {
+              "name": "Year",
+              "type": "number-input",
+              "label": "Manufacturing Year",
+              "required": false,
+              "min": 2000,
+              "max": 2025
+            },
+            {
+              "name": "Color",
+              "type": "dropdown",
+              "label": "Color",
+              "required": false,
+              "values": ["Black", "White", "Silver", "Red", "Blue", "Gray", "Other"]
+            },
+            {
+              "name": "License Plate",
+              "type": "text-input",
+              "label": "License Plate Number",
+              "required": false,
+              "placeholder": "e.g., ABC-1234"
+            },
+            {
+              "name": "Daily Rate",
+              "type": "currency-input",
+              "label": "Daily Rental Rate ($)",
+              "required": false,
+              "min": 0,
+              "step": 0.01
+            },
+            {
+              "name": "Availability",
+              "type": "radio-buttons",
+              "label": "Initial Status",
+              "values": ["Available", "Maintenance"],
+              "default": "Available"
+            }
+          ],
+          "submit_button": {
+            "label": "Add Car",
+            "action": "POST /add-car"
+          },
+          "success_message": "Car added successfully! Car ID: {carId}",
+          "error_handling": "Display error if Car ID already exists or validation fails"
+        }
+      ]
+    },
+    "add_user": {
+      "route": "/add-user",
+      "title": "Register New User",
+      "description": "Form to register a new customer",
+      "api_endpoint": "GET /add-user (form), POST /add-user (submission)",
+      "method": "POST",
+      "components": [
+        {
+          "name": "Page Header",
+          "content": "Title: 'Register New Customer', Back to Home button"
+        },
+        {
+          "name": "User Registration Form",
+          "fields": [
+            {
+              "name": "User ID",
+              "type": "number-input",
+              "label": "Unique User ID",
+              "required": true,
+              "validation": "Must be unique and positive",
+              "placeholder": "e.g., 1001"
+            },
+            {
+              "name": "Full Name",
+              "type": "text-input",
+              "label": "Full Name",
+              "required": true,
+              "placeholder": "e.g., John Doe",
+              "maxLength": 100
+            },
+            {
+              "name": "Email",
+              "type": "email-input",
+              "label": "Email Address",
+              "required": false,
+              "placeholder": "john@example.com",
+              "validation": "Valid email format"
+            },
+            {
+              "name": "Phone",
+              "type": "tel-input",
+              "label": "Phone Number",
+              "required": false,
+              "placeholder": "+1-234-567-8900"
+            },
+            {
+              "name": "License Number",
+              "type": "text-input",
+              "label": "Driver's License Number",
+              "required": false,
+              "placeholder": "ABC123456"
+            },
+            {
+              "name": "Address",
+              "type": "textarea",
+              "label": "Home Address",
+              "required": false,
+              "rows": 3,
+              "maxLength": 200
+            }
+          ],
+          "submit_button": {
+            "label": "Register Customer",
+            "action": "POST /add-user"
+          },
+          "success_message": "Customer registered successfully! User ID: {userId}",
+          "error_handling": "Display error if User ID already exists or validation fails"
+        }
+      ]
+    }
+  },
+  "api_endpoints": {
+    "base_url": "http://localhost:8080",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/",
+        "description": "Home page (HTML)"
+      },
+      {
+        "method": "GET",
+        "path": "/cars",
+        "description": "List all available cars (HTML view)"
+      },
+      {
+        "method": "GET",
+        "path": "/rent",
+        "description": "Rent car form (HTML)"
+      },
+      {
+        "method": "POST",
+        "path": "/rent",
+        "description": "Submit car rental",
+        "parameters": {
+          "userId": "integer (required)",
+          "carId": "integer (required)"
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/rentals",
+        "description": "View all rentals (HTML)"
+      },
+      {
+        "method": "GET",
+        "path": "/add-car",
+        "description": "Add car form (HTML)"
+      },
+      {
+        "method": "POST",
+        "path": "/add-car",
+        "description": "Submit new car",
+        "parameters": {
+          "id": "integer (required, unique)",
+          "make": "string (required)",
+          "model": "string (required)"
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/add-user",
+        "description": "Register user form (HTML)"
+      },
+      {
+        "method": "POST",
+        "path": "/add-user",
+        "description": "Submit user registration",
+        "parameters": {
+          "id": "integer (required, unique)",
+          "name": "string (required)"
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/h2-console",
+        "description": "H2 Database console access"
+      }
+    ]
+  },
+  "ui_components": {
+    "shared": [
+      {
+        "name": "Navigation Bar",
+        "features": ["Logo/Home link", "Active page indicator", "Menu links to all pages", "Responsive hamburger menu on mobile"]
+      },
+      {
+        "name": "Form Components",
+        "features": [
+          "Text Input with validation",
+          "Number Input",
+          "Email Input",
+          "Password Input",
+          "Dropdown/Select",
+          "Radio Buttons",
+          "Checkboxes",
+          "Textarea",
+          "Date Picker",
+          "Date Range Picker",
+          "Currency Input"
+        ]
+      },
+      {
+        "name": "Data Display",
+        "features": [
+          "Tables (sortable, paginated)",
+          "Cards (responsive grid)",
+          "Lists",
+          "Badges (for status)",
+          "Progress bars (if needed)"
+        ]
+      },
+      {
+        "name": "Feedback Components",
+        "features": [
+          "Success messages (green background)",
+          "Error messages (red background)",
+          "Warning messages (yellow background)",
+          "Info messages (blue background)",
+          "Toast notifications",
+          "Modal dialogs for confirmations"
+        ]
+      },
+      {
+        "name": "Buttons",
+        "styles": [
+          "Primary (blue) - Main actions",
+          "Secondary (gray) - Alternative actions",
+          "Success (green) - Confirmations",
+          "Danger (red) - Delete/Cancel",
+          "Link style - Navigation"
+        ]
+      }
+    ]
+  },
+  "styling_requirements": {
+    "color_scheme": {
+      "primary": "#007bff (Blue)",
+      "secondary": "#6c757d (Gray)",
+      "success": "#28a745 (Green)",
+      "danger": "#dc3545 (Red)",
+      "warning": "#ffc107 (Yellow)",
+      "info": "#17a2b8 (Cyan)",
+      "background": "#f5f5f5 (Light gray)",
+      "text": "#333333 (Dark gray)"
+    },
+    "layout": {
+      "max_width": "1200px",
+      "padding": "20px (desktop), 10px (mobile)",
+      "font_family": "Arial, Helvetica, sans-serif",
+      "font_size": "16px (body), 24px (headings)"
+    },
+    "responsive_design": {
+      "breakpoints": {
+        "mobile": "< 576px",
+        "tablet": "576px - 992px",
+        "desktop": "> 992px"
+      },
+      "grid_system": "12-column or CSS Grid"
+    },
+    "accessibility": [
+      "WCAG 2.1 AA compliance",
+      "Semantic HTML",
+      "ARIA labels for form fields",
+      "Keyboard navigation support",
+      "Color contrast ratios (4.5:1 for text)",
+      "Focus indicators on interactive elements"
+    ]
+  },
+  "features": {
+    "must_have": [
+      "Responsive design (mobile, tablet, desktop)",
+      "Form validation (client-side + server-side)",
+      "Error handling and user-friendly error messages",
+      "Loading states and spinners",
+      "Data persistence (calls to backend)",
+      "Navigation between pages",
+      "Search and filter functionality"
+    ],
+    "nice_to_have": [
+      "Dark mode toggle",
+      "User authentication and login",
+      "Dashboard with statistics",
+      "Rental history for users",
+      "Payment integration",
+      "Email notifications",
+      "PDF export for rentals",
+      "Real-time availability updates",
+      "Image upload for cars",
+      "Review/rating system"
+    ]
+  },
+  "performance_requirements": {
+    "page_load_time": "< 3 seconds",
+    "time_to_interactive": "< 5 seconds",
+    "bundle_size": "< 500KB (gzipped)",
+    "caching": "Browser caching for static assets",
+    "optimization": [
+      "Minify CSS and JavaScript",
+      "Compress images",
+      "Lazy load images",
+      "Code splitting for large apps",
+      "CDN for static assets"
+    ]
+  },
+  "testing": {
+    "unit_tests": "Test individual components",
+    "integration_tests": "Test API calls and data flow",
+    "e2e_tests": "Test complete user workflows",
+    "test_frameworks": [
+      "Jest (JavaScript)",
+      "React Testing Library (if using React)",
+      "Cypress (E2E)",
+      "Playwright (E2E)"
+    ]
+  },
+  "deployment": {
+    "hosting_options": [
+      "Vercel (for Next.js)",
+      "Netlify (for React/Vue)",
+      "AWS S3 + CloudFront",
+      "GitHub Pages",
+      "Docker containerization"
+    ],
+    "ci_cd": "GitHub Actions or GitLab CI",
+    "environment_variables": [
+      "API_BASE_URL",
+      "ENVIRONMENT (development, staging, production)",
+      "LOG_LEVEL"
+    ]
+  },
+  "technology_stack_recommendations": {
+    "vanilla": {
+      "description": "Plain HTML, CSS, JavaScript",
+      "pros": "Lightweight, no build process, easy to understand",
+      "cons": "Limited scalability, more boilerplate code"
+    },
+    "react": {
+      "description": "React + React Router + Axios",
+      "pros": "Component-based, large ecosystem, great for scalability",
+      "cons": "Steeper learning curve, build process required"
+    },
+    "vue": {
+      "description": "Vue 3 + Vue Router + Axios",
+      "pros": "Easy to learn, progressive framework, great documentation",
+      "cons": "Smaller ecosystem than React"
+    },
+    "angular": {
+      "description": "Angular + TypeScript",
+      "pros": "Full-featured framework, great for enterprise apps",
+      "cons": "Heavyweight, steep learning curve, more boilerplate"
+    },
+    "nextjs": {
+      "description": "Next.js + React",
+      "pros": "Built-in SSR, API routes, great for SEO",
+      "cons": "More complex setup, can be overkill for simple projects"
+    }
+  },
+  "file_structure_example": {
+    "vanilla": {
+      "structure": [
+        "index.html",
+        "css/styles.css",
+        "js/app.js",
+        "js/api.js",
+        "js/utils.js",
+        "pages/cars.html",
+        "pages/rent.html",
+        "pages/rentals.html",
+        "pages/add-car.html",
+        "pages/add-user.html"
+      ]
+    },
+    "react": {
+      "structure": [
+        "src/",
+        "  App.jsx",
+        "  main.jsx",
+        "  pages/",
+        "    Home.jsx",
+        "    Cars.jsx",
+        "    Rent.jsx",
+        "    Rentals.jsx",
+        "    AddCar.jsx",
+        "    AddUser.jsx",
+        "  components/",
+        "    Header.jsx",
+        "    Footer.jsx",
+        "    Navigation.jsx",
+        "    Form.jsx",
+        "    Table.jsx",
+        "  services/",
+        "    api.js",
+        "  styles/",
+        "    App.css",
+        "    pages.css"
+      ]
+    }
+  },
+  "next_steps": [
+    "1. Choose a frontend technology (React, Vue, Angular, or Vanilla JS)",
+    "2. Set up project structure and dependencies",
+    "3. Create reusable components and utilities",
+    "4. Implement pages according to specifications",
+    "5. Add form validation (client-side)",
+    "6. Integrate with backend API endpoints",
+    "7. Add error handling and loading states",
+    "8. Test all features thoroughly",
+    "9. Optimize performance",
+    "10. Deploy to production"
+  ]
+}
